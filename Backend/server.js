@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
@@ -10,9 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/chatApp', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+mongoose.connect(process.env.MONGODB_URI, {
 })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
@@ -36,14 +35,14 @@ const Message = mongoose.model('Message', messageSchema);
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'anujtiwari4454@gmail.com', // Replace with your email
-        pass: 'oqab zjhr ircd hmpy', // Replace with your app password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
     },
 });
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000', // Replace with your frontend URL
+    origin: process.env.FRONTEND_URL, // Replace with your frontend URL
     methods: ['GET', 'POST'],
     credentials: true,
 }));
@@ -53,7 +52,7 @@ app.use(express.json());
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: {
-        origin: 'http://localhost:3000', // Replace with your frontend URL
+        origin: process.env.FRONTEND_URL, // Replace with your frontend URL
         methods: ['GET', 'POST'],
         credentials: true,
     },
