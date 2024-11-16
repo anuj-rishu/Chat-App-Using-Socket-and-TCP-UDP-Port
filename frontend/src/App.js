@@ -5,9 +5,9 @@ import { Send, User, Mail, Moon, Sun } from 'lucide-react';
 import * as THREE from 'three';
 import { Toaster, toast } from 'react-hot-toast';
 
-
-
-const socket = io('https://chat-app-using-socket-and-tcp-udp-port.vercel.app');
+const socket = io('https://chat-app-using-socket-and-tcp-udp-port.vercel.app', {
+  transports: ['websocket']
+});
 
 export default function Component() {
   const [messages, setMessages] = useState([]);
