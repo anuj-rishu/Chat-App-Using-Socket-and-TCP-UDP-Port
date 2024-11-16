@@ -7,7 +7,7 @@ import { Toaster, toast } from 'react-hot-toast';
 
 
 
-const socket = io('http://localhost:8000');
+const socket = io('https://chat-app-using-socket-and-tcp-udp-port.vercel.app');
 
 export default function Component() {
   const [messages, setMessages] = useState([]);
@@ -68,7 +68,7 @@ export default function Component() {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:8000/register', {
+      await axios.post('https://chat-app-using-socket-and-tcp-udp-port.vercel.app/register', {
         username,
         email,
       });
